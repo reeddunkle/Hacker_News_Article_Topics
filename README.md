@@ -4,13 +4,14 @@
 
 #### What it does so far:
 
+- Scrapes the top-articles on [Hacker News](https://news.ycombinator.com/)
 - Gives new definition to Big Data!
 
 <img src=http://i.imgur.com/TxS4faf.png>
 
+
 #### It also:
 
-- Scrapes the top-articles on [Hacker News](https://news.ycombinator.com/)
 - Exports the article information to a .csv file, including the raw HTML
 
 #### You can do more...
@@ -24,12 +25,13 @@ See Line 41 for hacky code*:
 
 <img src=http://i.imgur.com/J1dd4Ip.png>
 
+----
 
-We were asked to present on this at RC last Thursday, to show our progress. We wanted something interesting to show, so we filtered out the stop words, compiled all of the remaining article text into one giant string, and made a word cloud!
+We were asked to present on this at RC last Thursday, to show our progress. We wanted something interesting to show, so we filtered out the stop words, compiled all of the remaining article text into one giant string, and rendered the word cloud above.
 
 <img src=http://i.imgur.com/Djadd1S.png>
 
-
+----
 
 #### Goals
 
