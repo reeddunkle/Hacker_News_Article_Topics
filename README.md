@@ -2,7 +2,7 @@
 
 *In development*
 
-#### What it does so far:
+## What it does so far:
 
 - Scrapes the top-articles on [Hacker News](https://news.ycombinator.com/)
 - Gives new definition to Big Data!
@@ -10,16 +10,16 @@
 <img src=http://i.imgur.com/TxS4faf.png>
 
 
-#### It also:
+## It also:
 
 - Exports the article information to a .csv file, including the raw HTML
 
-#### You can do more...
+## You can do more...
 
 - Use [goose-extractor](https://pypi.python.org/pypi/goose-extractor/) to extract the text from the HTML
 - Analyze article text using NLP techniques
 
-#### ...but there are bugs
+## ...but there are bugs
 
 See Line 41 for hacky code*:
 
@@ -33,13 +33,13 @@ We were asked to present on this at RC last Thursday, to show our progress. We w
 
 ----
 
-#### Goals
+## Goals
 
 - Create frequency distributions of article text
 - Look to extract / identify themes from a given set of articles
 
 
-#### Known bugs
+## Known bugs
 
 - *Some of the articles were causing the scraper to reach max recursion depth
 - **Today I learned you can't catch RuntimeErrors
