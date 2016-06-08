@@ -1,4 +1,4 @@
-# hn_scrape
+# Hacker News Scraper
 
 *In development*
 
