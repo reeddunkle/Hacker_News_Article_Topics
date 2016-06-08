@@ -27,7 +27,7 @@ See Line 41 for hacky code*:
 
 ----
 
-We were asked to present on this at RC last Thursday, to show our progress. We wanted something interesting to show, so we filtered out the stop words, compiled all of the remaining article text into one giant string, and rendered the word cloud above.
+We were asked to present on this at [RC](https://www.recurse.com/) last Thursday, to show our progress. We wanted something interesting to show, so we filtered out the stop words, compiled all of the remaining article text into one giant string, and rendered the word cloud above.
 
 <img src=http://i.imgur.com/Djadd1S.png>
 
