@@ -20,6 +20,7 @@ jupyter==1.0.0
 jupyter-client==4.2.2
 jupyter-console==4.1.1
 jupyter-core==4.1.0
+lda==1.0.3
 lxml==3.6.0
 MarkupSafe==0.23
 mistune==0.7.2
@@ -30,6 +31,7 @@ notebook==4.2.0
 numpy==1.11.0
 pandas==0.18.1
 pathlib2==2.1.0
+pbr==1.10.0
 pexpect==4.1.0
 pickleshare==0.7.2
 Pillow==3.2.0
@@ -39,6 +41,7 @@ python-dateutil==2.5.3
 pytz==2016.4
 pyzmq==15.2.0
 qtconsole==4.2.1
+requests==2.10.0
 simplegeneric==0.8.1
 singledispatch==3.4.0.3
 six==1.10.0
@@ -46,3 +49,4 @@ terminado==0.6
 tornado==4.3
 traitlets==4.2.1
 widgetsnbextension==1.2.3
+wordcloud==1.2.1
