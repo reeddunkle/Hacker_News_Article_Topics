@@ -5,7 +5,7 @@
 ## What it does so far:
 
 - Scrapes the top-articles on [Hacker News](https://news.ycombinator.com/)
-- Processes the text from the article, cleaning it in preparation for the [lda](https://pythonhosted.org/lda/index.html) API
+- Processes the text from the article, cleaning it in preparation for the [LDA](https://pythonhosted.org/lda/index.html) API
 - Gives new definition to Big Data!
 
 <img src=http://i.imgur.com/TxS4faf.png>
