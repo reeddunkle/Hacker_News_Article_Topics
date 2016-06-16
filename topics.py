@@ -1,4 +1,4 @@
-from exceptions import TypeError
+from exceptions import TypeError, RuntimeError
 import string
 import pandas as pd
 from goose import Goose
@@ -40,19 +40,16 @@ def clean_html():
 
     return html_clean
 
+
 html_clean = clean_html()
-
-
 
 printable = set(string.printable)
 exclude = set(['!', '"', '%', '$', "'", '&', ')', '(', '*', '-', ',', '/', '.', ';', ':', '<', '?', '>', '@', '[', ']', '\\', '_', '^', '`', '{', '}', '|', '~'])
 clean_text = []
-for text in html_clean:
-    clean = filter(lambda c: c in printable and c not in exclude, text)
-    clean_text.append(clean)
 
 
 def clean(text):
+
     new_s = filter(lambda c: c in printable, text)
     print(len(new_s))
     clean_s = ""
