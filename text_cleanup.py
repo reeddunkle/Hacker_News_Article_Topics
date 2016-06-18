@@ -63,3 +63,19 @@ def normalize_all_texts_for_lda(texts):
     lemmatized_texts = [lemmatize_individual_text(text) for text in texts_without_stopwords]
 
     return lemmatized_texts
+
+
+def normalize_titles(title_list):
+    '''
+    Given list of titles, returns list of text-normalized titles.
+    '''
+
+    clean_titles = []
+
+    for t in title_list:
+        title_tokens = tokenize_individual_text(t)
+        normalized_title_tokens = filter(lambda w: w.isalpha(), title_tokens)
+        title_string = ' '.join(normalized_title_tokens)
+        clean_titles.append(title_string)
+
+    return clean_titles

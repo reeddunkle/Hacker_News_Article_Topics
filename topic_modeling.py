@@ -1,9 +1,10 @@
 from stop_words import get_stop_words
 from gensim import corpora, models
 from goose import Goose
+from nltk.collocations import BigramCollocationFinder
+import nltk
 import numpy
 import gensim
-import nltk
 import lda
 import pandas
 
@@ -14,37 +15,73 @@ from text_cleanup import (tokenize_individual_text,
                           remove_stopwords_from_individual_text,
                           lemmatize_individual_text,
                           normalize_all_texts_for_collocation,
+                          normalize_titles,
                           normalize_all_texts_for_lda)
 
 
 def get_content(html):
     '''
-    Given html: Use goose to extract text and clean it.
+    Given html: Uses goose to extract title and clean text.
     '''
 
-    return goose.extract(raw_html=html).cleaned_text
+    article = goose.extract(raw_html=html)
+    title = article.title
+    text = article.cleaned_text
 
+    return (title, text)
 
-def clean_html(html_list):
-    html_clean = []
+def extract_title_text_from_html(html_list):
+    '''
+    Given a list of each article's html, returns list of tuples
+    containing extracted titles and text.
+    '''
+
+    articles_list = []
 
     article_count = 0
-    for html in html_list[:20]:
+    for html in html_list:
         # print i
         try:
             if article_count:  # For debugging
-                html_clean.append(get_content(html))
+                articles_list.append(get_content(html))
 
-        except (IndexError, TypeError):
-            pass
-
-        except RuntimeError:
+        except (IndexError, TypeError, RuntimeError):
             pass
 
         article_count += 1
 
-    # print(article_count)
-    return html_clean
+    return articles_list
+
+
+def list_of_tuples_to_tuple_of_lists(tuple_list):
+    '''
+    Given a list of tuples, return a single tuple of lists.
+    '''
+
+    title_list = []
+    article_list = []
+
+    for title, article in tuple_list:
+        title_list.append(title)
+        article_list.append(article)
+
+    return (title_list, article_list)
+
+
+def generate_collocations(tokens):
+    '''Given list of tokens, return collocations
+    '''
+
+    ignored_words = nltk.corpus.stopwords.words('english')
+    bigram_measures = nltk.collocations.BigramAssocMeasures()
+
+    finder = BigramCollocationFinder.from_words(tokens, window_size = 4)
+    finder.apply_word_filter(lambda w: len(w) < 3 or w.lower() in ignored_words)
+    finder.apply_freq_filter(2)
+
+    colls = finder.nbest(bigram_measures.likelihood_ratio, 5)
+
+    return colls
 
 
 def display_collocations(articles):
@@ -52,15 +89,21 @@ def display_collocations(articles):
     Given article dictionary of {title: text},
     returns collocations list for each text.
     '''
-    i = 0
-    for title, tokens in articles.iteritems():
+    title_list, token_list, = articles
+    for i, tokens in enumerate(token_list):
         print('-'*15)
-        # print("Should be dictionary {}: {}".format(title, tokens))
+
+        if title_list[i] != '':
+            title = title_list[i]
+        else:
+            title = "MISSING TITLE"
+
+
+        colls = generate_collocations(tokens)
 
         print("Title: {}\n".format(title))
         print("Topics:")
-        nltk_text = nltk.Text(tokens)
-        nltk_text.collocations()
+        print(colls)
         print('-'*15)
 
 
@@ -81,31 +124,37 @@ if __name__ == '__main__':
     dataframe = pandas.read_csv("articles.csv", index_col=False)
 
     html_list = dataframe['html'].tolist()
-    title_list = dataframe['title'].tolist()
-    texts_clean = clean_html(html_list)
+    # title_list = dataframe['title'].tolist()
+    articles_list = extract_title_text_from_html(html_list[:12])
 
-    collocation_ready_texts = normalize_all_texts_for_collocation(texts_clean)
-    articles_for_collocations = dict(zip(title_list, collocation_ready_texts))
+    tuple_of_lists = list_of_tuples_to_tuple_of_lists(articles_list)
+    title_list, text_list = tuple_of_lists
 
-    display_collocations(articles_for_collocations)
+    clean_title_list = normalize_titles(title_list)
 
-    texts_for_LDA = normalize_all_texts_for_lda(texts_clean)
+    collocation_ready_text = normalize_all_texts_for_collocation(text_list)
 
-    vocab = sum(texts_for_LDA, [])
-    titles = sum(title_list, [])
+    articles = (clean_title_list, collocation_ready_text)
 
-    doc_term_matrix = create_document_term_matrix(texts_for_LDA)
+    display_collocations(articles)
 
-    model = lda.LDA(n_topics=20, n_iter=1500, random_state=1)
-    model.fit(doc_term_matrix)
+    # texts_for_LDA = normalize_all_texts_for_lda(texts_clean)
 
-    topic_word = model.topic_word_
-    n_top_words = 8
+    # vocab = sum(texts_for_LDA, [])
+    # titles = title_list
 
-    for i, topic_dist in enumerate(topic_word):
-        topic_words = numpy.array(vocab)[np.argsort(topic_dist)][:-(n_top_words+1):-1]
-        print('Topic {}: {}'.format(i, ' '.join(topic_words)))
+    # doc_term_matrix = create_document_term_matrix(texts_for_LDA)
 
-    articles_for_lda = dict(zip(title_list, texts_for_LDA))
+    # model = lda.LDA(n_topics=20, n_iter=1500, random_state=1)
+    # model.fit(doc_term_matrix)
+
+    # topic_word = model.topic_word_
+    # n_top_words = 8
+
+    # for i, topic_dist in enumerate(topic_word):
+    #     topic_words = numpy.array(vocab)[numpy.argsort(topic_dist)][:-(n_top_words+1):-1]
+    #     print('Topic {}: {}'.format(i, ' '.join(topic_words)))
+
+    # articles_for_lda = dict(zip(title_list, texts_for_LDA))
 
 
