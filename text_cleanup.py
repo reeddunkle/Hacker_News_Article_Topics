@@ -1,5 +1,5 @@
 import nltk
-from stop_words import get_stop_words
+import stop_words
 
 def tokenize_individual_text(raw_text):
     '''
@@ -36,7 +36,6 @@ def remove_stopwords_from_individual_text(tokens):
     Given a list of tokens, returns a list of strings without any stopwords.
     '''
 
-    import stop_words
     en_stop_words = stop_words.get_stop_words('en')
 
     return filter(lambda w: w not in en_stop_words, tokens)
@@ -51,7 +50,7 @@ def lemmatize_individual_text(tokens):
 
     return map(lemmatizer.lemmatize, tokens)
 
-"""FILTER TEXT BY TITLE TOO"""
+
 def normalize_all_texts_for_collocation(articles):
     '''
     Given a tuple of title list and text list, tokenize and normalize each text.
@@ -68,18 +67,6 @@ def normalize_all_texts_for_collocation(articles):
         normalized_texts.append(normalized_tokens)
 
     return normalized_texts
-
-
-    # # Don't remove stopwords or lemmatize for this step
-    # tokenized_texts = [tokenize_individual_text(text) for text in text_list]
-    # normalized_texts = [normalize_individual_text(text) for text in tokenized_texts]
-
-    # texts_minus_titles = []
-    # for i, tokens in normalized_texts:
-    #     text_no_title = normalize_individual_text_by_title(tokens, title_list[i])
-    #     texts_minus_titles.append(text_no_title)
-
-    # return texts_minus_titles
 
 
 def normalize_all_texts_for_lda(texts):

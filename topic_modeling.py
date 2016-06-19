@@ -67,7 +67,8 @@ def list_of_tuples_to_tuple_of_lists(tuple_list):
 
 
 def generate_collocations(tokens):
-    '''Given list of tokens, return collocations
+    '''
+    Given list of tokens, return collocations
     '''
 
     ignored_words = nltk.corpus.stopwords.words('english')
@@ -84,10 +85,11 @@ def generate_collocations(tokens):
 
 def display_collocations(articles):
     '''
-    Given article dictionary of {title: text},
-    returns collocations list for each text.
+    Given tuple containing title list and token list, PRINTS results (no return)
     '''
+
     title_list, token_list = articles
+
     for i, tokens in enumerate(token_list):
         if title_list[i] != '':
             print('-'*15)
@@ -107,8 +109,7 @@ def display_collocations(articles):
 
 
 
-
-
+""" This is for LDA"""
 def create_document_term_matrix(texts):
     '''
     Given list of texts, returns a document-term matrix
@@ -138,6 +139,12 @@ if __name__ == '__main__':
     articles = (clean_title_list, collocation_ready_text)
     display_collocations(articles)
 
+
+    """
+    ----------------------------
+    FOR LATER LDA IMPLEMENTATION
+    """
+
     # texts_for_LDA = normalize_all_texts_for_lda(texts_clean)
 
     # vocab = sum(texts_for_LDA, [])
@@ -156,5 +163,4 @@ if __name__ == '__main__':
     #     print('Topic {}: {}'.format(i, ' '.join(topic_words)))
 
     # articles_for_lda = dict(zip(title_list, texts_for_LDA))
-
 

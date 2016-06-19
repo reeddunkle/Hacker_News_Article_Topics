@@ -1,11 +1,11 @@
 import requests
 import pandas as pd
-from goose import Goose
 from exceptions import TypeError, RuntimeError
 
-goose = Goose()
+
 
 ROOT = 'https://hacker-news.firebaseio.com/v0/'
+
 
 def scrape_HN_articles_write_to_csv():
     '''
@@ -40,6 +40,3 @@ def scrape_HN_articles_write_to_csv():
 
 if __name__ == '__main__':
     scrape_articles_write_to_csv()
-    # html_list = df["html"].tolist()
-    # title_list = df['title'].tolist()
-    # html_clean = clean_html(html_list)
