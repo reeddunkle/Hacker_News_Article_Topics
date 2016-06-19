@@ -11,13 +11,24 @@ def tokenize_individual_text(raw_text):
 
 def normalize_individual_text(tokens):
     '''
-    Given tokens, a list of strings of all words in a text, returns a normalized list of strings.
+    Given tokens, a list of strings of all words in a text, returns a normalized list of tokens.
     '''
 
     filtered_list = filter(lambda w: w.isalpha(), tokens)
-    lowercased_list = map(lambda w: w.lower(), filtered_list)
+    lowercased_list_of_tokens = map(lambda w: w.lower(), filtered_list)
 
-    return lowercased_list
+    return lowercased_list_of_tokens
+
+
+def normalize_individual_text_by_title(tokens, title):
+    '''
+    Given text tokens and title, return tokens minus title words
+    '''
+
+    title_tokens = tokenize_individual_text(title)
+    normalized_titles = normalize_individual_text(title_tokens)
+
+    return [t for t in tokens if t not in normalized_titles]
 
 
 def remove_stopwords_from_individual_text(tokens):
@@ -40,17 +51,35 @@ def lemmatize_individual_text(tokens):
 
     return map(lemmatizer.lemmatize, tokens)
 
-
-def normalize_all_texts_for_collocation(corpora):
+"""FILTER TEXT BY TITLE TOO"""
+def normalize_all_texts_for_collocation(articles):
     '''
-    Given a list of texts, tokenize and normalize each text.
+    Given a tuple of title list and text list, tokenize and normalize each text.
     '''
 
-    # skip stopwords and lemmatizing
-    tokenized_texts = [tokenize_individual_text(text) for text in corpora]
-    normalized_texts = [normalize_individual_text(text) for text in tokenized_texts]
+    title_list, text_list = articles
+
+    normalized_texts = []
+    for i, text in enumerate(text_list):
+        raw_tokens = tokenize_individual_text(text)
+        tokens_minus_title = normalize_individual_text_by_title(raw_tokens, title_list[i])
+        normalized_tokens = normalize_individual_text(tokens_minus_title)
+
+        normalized_texts.append(normalized_tokens)
 
     return normalized_texts
+
+
+    # # Don't remove stopwords or lemmatize for this step
+    # tokenized_texts = [tokenize_individual_text(text) for text in text_list]
+    # normalized_texts = [normalize_individual_text(text) for text in tokenized_texts]
+
+    # texts_minus_titles = []
+    # for i, tokens in normalized_texts:
+    #     text_no_title = normalize_individual_text_by_title(tokens, title_list[i])
+    #     texts_minus_titles.append(text_no_title)
+
+    # return texts_minus_titles
 
 
 def normalize_all_texts_for_lda(texts):

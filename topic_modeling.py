@@ -15,6 +15,7 @@ from text_cleanup import (tokenize_individual_text,
                           remove_stopwords_from_individual_text,
                           lemmatize_individual_text,
                           normalize_all_texts_for_collocation,
+                          normalize_individual_text_by_title,
                           normalize_titles,
                           normalize_all_texts_for_lda)
 
@@ -38,17 +39,14 @@ def extract_title_text_from_html(html_list):
 
     articles_list = []
 
-    article_count = 0
     for html in html_list:
         # print i
         try:
-            if article_count:  # For debugging
-                articles_list.append(get_content(html))
+            content = get_content(html)
+            articles_list.append(content)
 
         except (IndexError, TypeError, RuntimeError):
             pass
-
-        article_count += 1
 
     return articles_list
 
@@ -75,9 +73,9 @@ def generate_collocations(tokens):
     ignored_words = nltk.corpus.stopwords.words('english')
     bigram_measures = nltk.collocations.BigramAssocMeasures()
 
-    finder = BigramCollocationFinder.from_words(tokens, window_size = 4)
+    finder = BigramCollocationFinder.from_words(tokens, window_size = 3)
     finder.apply_word_filter(lambda w: len(w) < 3 or w.lower() in ignored_words)
-    finder.apply_freq_filter(2)
+    finder.apply_freq_filter(1)
 
     colls = finder.nbest(bigram_measures.likelihood_ratio, 5)
 
@@ -89,22 +87,26 @@ def display_collocations(articles):
     Given article dictionary of {title: text},
     returns collocations list for each text.
     '''
-    title_list, token_list, = articles
+    title_list, token_list = articles
     for i, tokens in enumerate(token_list):
-        print('-'*15)
-
         if title_list[i] != '':
+            print('-'*15)
             title = title_list[i]
+            print("Title: {}\n".format(title))
+            print("Topics:")
+            colls = generate_collocations(tokens)
+
+            string_of_tuples = ' '.join([str(tup) for tup in colls])
+
+
+            print(string_of_tuples)
+            print('-'*15)
+
         else:
-            title = "MISSING TITLE"
+            pass
 
 
-        colls = generate_collocations(tokens)
 
-        print("Title: {}\n".format(title))
-        print("Topics:")
-        print(colls)
-        print('-'*15)
 
 
 def create_document_term_matrix(texts):
@@ -124,18 +126,16 @@ if __name__ == '__main__':
     dataframe = pandas.read_csv("articles.csv", index_col=False)
 
     html_list = dataframe['html'].tolist()
-    # title_list = dataframe['title'].tolist()
-    articles_list = extract_title_text_from_html(html_list[:12])
+    articles_list = extract_title_text_from_html(html_list[:12])  # First 12 for testing
 
     tuple_of_lists = list_of_tuples_to_tuple_of_lists(articles_list)
     title_list, text_list = tuple_of_lists
 
     clean_title_list = normalize_titles(title_list)
 
-    collocation_ready_text = normalize_all_texts_for_collocation(text_list)
+    collocation_ready_text = normalize_all_texts_for_collocation((clean_title_list, text_list))
 
     articles = (clean_title_list, collocation_ready_text)
-
     display_collocations(articles)
 
     # texts_for_LDA = normalize_all_texts_for_lda(texts_clean)
