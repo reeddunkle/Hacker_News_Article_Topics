@@ -1,15 +1,14 @@
 # Hacker News Topic Model
 
-What works so far
-----
 
 <img src="http://i.imgur.com/v5e7kLP.png" />
 <img src="http://i.imgur.com/ACwzxZ9.png" />
 
-So, it does OK. Here you can check out the original articles to compare:
+Right now it tries to identify key words from an article.
+You can see the original articles to compare:
 
 
-| No. | Title | Topic Model | Original Article |
+| No. | Title | Key Words | Original Article |
 | ----|----   |----         |----               |
 |1.|"Appeals court upholds FCC net neutrality order"| internet order; Chairman Tom; open internet; FCC chairman | [Link](http://www.politico.com/story/2016/06/court-upholds-obama-backed-net-neutrality-rules-224309) |
 |2.|"Appeals Court Holds Up Net Neutrality Rules In Full"| President Obama; reclassify broadband; broadband internet; service providers; act considering | [Link](http://www.npr.org/sections/thetwo-way/2016/06/14/471286113/u-s-appeals-court-holds-up-net-neutrality-rules-in-full?utm_source=facebook.com&utm_medium=social&utm_campaign=npr&utm_term=nprnews&utm_content=20160614) |
@@ -22,7 +21,7 @@ So, it does OK. Here you can check out the original articles to compare:
 |9.|"A Sticky Stringy Quandary"| horrible performance; string situation; deriving mechanism; pretty printer; show class | [Link](http://www.stephendiehl.com/posts/strings.html) |
 
 
-This is a topic model arrived at using NLTK's collocations. I established a custom model, playing around with all of the options I found [here](http://www.nltk.org/howto/collocations.html). That page explains the logic behind the various ways you can refine the collocation model for precision.
+These key words are arrived at using NLTK's collocations. I established custom bigram measures, playing around with all of the options I found [here](http://www.nltk.org/howto/collocations.html). That page explains the logic behind the various ways you can refine the collocation measures for precision.
 
 I got the best results by
 
