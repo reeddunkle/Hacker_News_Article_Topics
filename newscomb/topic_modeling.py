@@ -50,16 +50,11 @@ def extract_title_and_text_from_html(html_list):
     Given a list of each article's html, returns list of tuples
     containing extracted titles and text.
     '''
+
     import multiprocessing
     pool = multiprocessing.Pool(12)
 
     articles_list = pool.map(safely_get_content, html_list)
-
-    # articles_list = []
-
-    # for html in html_list:
-    #     content = safely_get_content(html)
-    #     articles_list.append(content)
 
     return articles_list
 
