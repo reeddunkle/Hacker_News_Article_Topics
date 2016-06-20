@@ -1,3 +1,10 @@
+"""
+    scrape
+    ~~~~~~
+
+    Scrape and store Hacker News articles.
+"""
+
 import requests
 import pandas as pd
 from exceptions import TypeError, RuntimeError

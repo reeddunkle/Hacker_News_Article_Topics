@@ -1,3 +1,10 @@
+"""
+    topic_modeling
+    ~~~~~~~~~~~~~~
+
+    Generate topic models from article text
+"""
+
 from stop_words import get_stop_words
 from gensim import corpora, models
 from goose import Goose
