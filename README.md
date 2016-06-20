@@ -1,4 +1,4 @@
-# Hacker News Topic Model
+# Hacker News Key Words
 
 
 <img src="http://i.imgur.com/v5e7kLP.png" />
