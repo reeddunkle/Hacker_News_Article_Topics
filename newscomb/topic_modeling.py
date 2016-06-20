@@ -26,33 +26,40 @@ from text_cleanup import (tokenize_individual_text,
                           normalize_titles)
 
 
-def get_content(html):
+
+
+def safely_get_content(html):
     '''
     Given html: Uses goose to extract title and clean text.
     '''
 
-    article = goose.extract(raw_html=html)
-    title = article.title
-    text = article.cleaned_text
+    try:
+        article = goose.extract(raw_html=html)
+        title = article.title
+        text = article.cleaned_text
+        content = (title, text)
 
-    return (title, text)
+    except (IndexError, TypeError, RuntimeError):
+        pass
 
-def extract_title_text_from_html(html_list):
+    return content
+
+
+def extract_title_and_text_from_html(html_list):
     '''
     Given a list of each article's html, returns list of tuples
     containing extracted titles and text.
     '''
+    import multiprocessing
+    pool = multiprocessing.Pool(12)
 
-    articles_list = []
+    articles_list = pool.map(safely_get_content, html_list)
 
-    for html in html_list:
-        # print i
-        try:
-            content = get_content(html)
-            articles_list.append(content)
+    # articles_list = []
 
-        except (IndexError, TypeError, RuntimeError):
-            pass
+    # for html in html_list:
+    #     content = safely_get_content(html)
+    #     articles_list.append(content)
 
     return articles_list
 
@@ -121,10 +128,10 @@ def display_collocations(articles):
 
 if __name__ == '__main__':
 
-    dataframe = pandas.read_csv("articles.csv", index_col=False)
+    dataframe = pandas.read_csv("../data/articles.csv", index_col=False)
 
-    html_list = dataframe['html'].tolist()
-    articles_list = extract_title_text_from_html(html_list[:12])  # First 12 for testing
+    html_list = dataframe['html']
+    articles_list = extract_title_and_text_from_html(html_list[:20]) # 20 for testing
 
     tuple_of_lists = transpose_tuples_lists(articles_list)
     title_list, text_list = tuple_of_lists

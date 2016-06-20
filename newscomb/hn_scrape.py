@@ -45,7 +45,7 @@ def scrape_HN_articles_write_to_csv():
                print('wrong password')
 
     df = pd.DataFrame.from_records(articles, columns=['by', 'descendants', 'id', 'score', 'time', 'title', 'type', 'url', 'html'])
-    df.to_csv("articles.csv", encoding="utf-8", index=False)
+    df.to_csv("../data/articles.csv", encoding="utf-8", index=False)
 
 
 if __name__ == '__main__':
