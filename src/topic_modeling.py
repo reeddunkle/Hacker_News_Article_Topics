@@ -1,3 +1,10 @@
+"""
+    topic_modeling
+    ~~~~~~~~~~~~
+
+    Generate topic models from articles
+"""
+
 from stop_words import get_stop_words
 from gensim import corpora, models
 from goose import Goose
@@ -8,6 +15,7 @@ import gensim
 import lda
 import pandas
 
+# Goose is a library for extracting data from articles
 goose = Goose()
 
 from text_cleanup import (tokenize_individual_text,
@@ -30,6 +38,7 @@ def get_content(html):
     text = article.cleaned_text
 
     return (title, text)
+
 
 def extract_title_text_from_html(html_list):
     '''
@@ -129,7 +138,7 @@ def create_document_term_matrix(texts):
 
 if __name__ == '__main__':
 
-    dataframe = pandas.read_csv("articles.csv", index_col=False)
+    dataframe = pandas.read_csv("../data/articles.csv", index_col=False)
 
     html_list = dataframe['html'].tolist()
     articles_list = extract_title_text_from_html(html_list[:12])  # First 12 for testing

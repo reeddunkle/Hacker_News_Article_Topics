@@ -1,3 +1,11 @@
+"""
+    text_cleanup
+    ~~~~~~~~~~~~
+
+    Clean and normalize text for processing
+"""
+
+
 import nltk
 import stop_words
 
