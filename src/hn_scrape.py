@@ -23,22 +23,25 @@ def scrape_HN_articles_write_to_csv():
     top_stories = requests.get(ROOT + 'topstories.json').json()
     articles = []
 
-    for id in top_stories:
-        a = requests.get(ROOT + "item/" + str(id) + ".json").json()
-        print a  # For debugging
+    for article_id in top_stories:
+        article = requests.get(ROOT + "item/" + str(article_id) + ".json").json()
+        print article  # For debugging
 
-        if 'url' in a:
-            a_url = a['url']
+        if 'url' in article:
+            article_url = article['url']
             try:
-                a_page = requests.get(a_url)
-                content = a_page.content.decode('utf-8', 'ignore')
+                article_page = requests.get(article_url)
+                content = article_page.content.decode('utf-8', 'ignore')
 
-                a_row = [a['by'], a['descendants'], a['id'], a['score'],
-                     a['time'], a['title'], a['type'], a['url'], content]
+                article_row = [article['by'], article['descendants'], article['id'], article['score'],
+                     article['time'], article['title'], article['type'], article_url, content]
 
-                articles.append(a_row)
+                articles.append(article_row)
 
-            except requests.exceptions.ContentDecodingError as e: # handling the ContentDecoding exception
+
+            # A ContentDecoding exception seems to arise when attempting to scrape
+            # an site that requires some sort of authentication (throws 'wrong password')
+            except requests.exceptions.ContentDecodingError as e:
                print('wrong password')
 
     df = pd.DataFrame.from_records(articles, columns=['by', 'descendants', 'id', 'score', 'time', 'title', 'type', 'url', 'html'])
@@ -46,4 +49,4 @@ def scrape_HN_articles_write_to_csv():
 
 
 if __name__ == '__main__':
-    scrape_articles_write_to_csv()
+    scrape_HN_articles_write_to_csv()
