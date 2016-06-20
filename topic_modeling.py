@@ -1,10 +1,3 @@
-"""
-    topic_modeling
-    ~~~~~~~~~~~~
-
-    Generate topic models from articles
-"""
-
 from stop_words import get_stop_words
 from gensim import corpora, models
 from goose import Goose
@@ -15,7 +8,6 @@ import gensim
 import lda
 import pandas
 
-# Goose is a library for extracting data from articles
 goose = Goose()
 
 from text_cleanup import (tokenize_individual_text,
@@ -38,7 +30,6 @@ def get_content(html):
     text = article.cleaned_text
 
     return (title, text)
-
 
 def extract_title_text_from_html(html_list):
     '''
@@ -122,9 +113,23 @@ def display_collocations(articles):
             pass
 
 
+
+""" This is for LDA"""
+def create_document_term_matrix(texts):
+    '''
+    Given list of texts, returns a document-term matrix
+    '''
+
+    dictionary = corpora.Dictionary(texts)
+    corpus = [dictionary.doc2bow(text) for text in texts]
+
+    return corpus
+
+
+
 if __name__ == '__main__':
 
-    dataframe = pandas.read_csv("../data/articles.csv", index_col=False)
+    dataframe = pandas.read_csv("articles.csv", index_col=False)
 
     html_list = dataframe['html'].tolist()
     articles_list = extract_title_text_from_html(html_list[:12])  # First 12 for testing
@@ -138,3 +143,29 @@ if __name__ == '__main__':
 
     articles = (clean_title_list, collocation_ready_text)
     display_collocations(articles)
+
+
+    """
+    ----------------------------
+    FOR LATER LDA IMPLEMENTATION
+    """
+
+    # texts_for_LDA = normalize_all_texts_for_lda(texts_clean)
+
+    # vocab = sum(texts_for_LDA, [])
+    # titles = title_list
+
+    # doc_term_matrix = create_document_term_matrix(texts_for_LDA)
+
+    # model = lda.LDA(n_topics=20, n_iter=1500, random_state=1)
+    # model.fit(doc_term_matrix)
+
+    # topic_word = model.topic_word_
+    # n_top_words = 8
+
+    # for i, topic_dist in enumerate(topic_word):
+    #     topic_words = numpy.array(vocab)[numpy.argsort(topic_dist)][:-(n_top_words+1):-1]
+    #     print('Topic {}: {}'.format(i, ' '.join(topic_words)))
+
+    # articles_for_lda = dict(zip(title_list, texts_for_LDA))
+

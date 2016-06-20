@@ -1,11 +1,3 @@
-"""
-    text_cleanup
-    ~~~~~~~~~~~~
-
-    Clean and normalize text for processing
-"""
-
-
 import nltk
 import stop_words
 
@@ -49,6 +41,16 @@ def remove_stopwords_from_individual_text(tokens):
     return filter(lambda w: w not in en_stop_words, tokens)
 
 
+def lemmatize_individual_text(tokens):
+    '''
+    Given a list of tokens, return a list of lemmatized strings.
+    '''
+
+    lemmatizer = nltk.WordNetLemmatizer()
+
+    return map(lemmatizer.lemmatize, tokens)
+
+
 def normalize_all_texts_for_collocation(articles):
     '''
     Given a tuple of title list and text list, tokenize and normalize each text.
@@ -65,6 +67,18 @@ def normalize_all_texts_for_collocation(articles):
         normalized_texts.append(normalized_tokens)
 
     return normalized_texts
+
+
+def normalize_all_texts_for_lda(texts):
+    '''
+    Given a list of texts: tokenize, normalize, remove stopwords, and lemmatize each text.
+    '''
+
+    normalized_texts = normalize_all_texts_for_collocation(texts)
+    texts_without_stopwords = [remove_stopwords_from_individual_text(text) for text in normalized_texts]
+    lemmatized_texts = [lemmatize_individual_text(text) for text in texts_without_stopwords]
+
+    return lemmatized_texts
 
 
 def normalize_titles(title_list):
