@@ -11,7 +11,7 @@ from exceptions import TypeError, RuntimeError
 
 
 
-ROOT = 'https://hacker-news.firebaseio.com/v0/'
+ROOT_URL = 'https://hacker-news.firebaseio.com/v0/'
 
 
 def scrape_HN_articles_write_to_csv():
@@ -20,11 +20,11 @@ def scrape_HN_articles_write_to_csv():
     and writes it to a .csv file.
     '''
 
-    top_stories = requests.get(ROOT + 'topstories.json').json()
+    top_stories = requests.get(ROOT_URL + 'topstories.json').json()
     articles = []
 
     for article_id in top_stories:
-        article = requests.get(ROOT + "item/" + str(article_id) + ".json").json()
+        article = requests.get(ROOT_URL + "item/" + str(article_id) + ".json").json()
         print article  # For debugging
 
         if 'url' in article:

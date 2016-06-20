@@ -15,6 +15,7 @@ import gensim
 import lda
 import pandas
 
+# Goose is a library to extract data and media from sites
 goose = Goose()
 
 from text_cleanup import (tokenize_individual_text,
@@ -58,7 +59,7 @@ def extract_title_text_from_html(html_list):
     return articles_list
 
 
-def list_of_tuples_to_tuple_of_lists(tuple_list):
+def transpose_tuples_lists(tuple_list):
     '''
     Given a list of tuples, return a single tuple of lists.
     '''
@@ -141,7 +142,7 @@ if __name__ == '__main__':
     html_list = dataframe['html'].tolist()
     articles_list = extract_title_text_from_html(html_list[:12])  # First 12 for testing
 
-    tuple_of_lists = list_of_tuples_to_tuple_of_lists(articles_list)
+    tuple_of_lists = transpose_tuples_lists(articles_list)
     title_list, text_list = tuple_of_lists
 
     clean_title_list = normalize_titles(title_list)
