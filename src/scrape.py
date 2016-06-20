@@ -38,7 +38,7 @@ def scrape_HN_articles_write_to_csv():
 
                 articles.append(article_row)
 
-            # handles a ContentDecoding exception that shows up on some articles that
+            # Handles a ContentDecoding exception that shows up on some articles that
             # seems to occur due to lack of authentication on an article's site
             except requests.exceptions.ContentDecodingError as e:
                print('wrong password')
