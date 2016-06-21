@@ -40,7 +40,7 @@ def safely_get_content(html):
         content = (title, text)
 
     except (IndexError, TypeError, RuntimeError):
-        pass
+        return None
 
     return content
 
@@ -55,6 +55,7 @@ def extract_title_and_text_from_html(html_list):
     pool = multiprocessing.Pool(12)
 
     articles_list = pool.map(safely_get_content, html_list)
+    articles_list = [a for a in articles_list if a is not None]
 
     return articles_list
 

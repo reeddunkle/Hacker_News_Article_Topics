@@ -1,6 +1,10 @@
 # Hacker News Key Words
 
-| No. | Title | Key Words | Original Article |
+<img src="http://i.imgur.com/8u34rvs.gif" />
+<img src="http://i.imgur.com/JabwHTV.gif" />
+
+
+| No. | Title | Keywords | Original Article |
 | ----|----   |----         |----               |
 |1.|"Appeals court upholds FCC net neutrality order"| internet order; Chairman Tom; open internet; FCC chairman | [Link](http://www.politico.com/story/2016/06/court-upholds-obama-backed-net-neutrality-rules-224309) |
 |2.|"Appeals Court Holds Up Net Neutrality Rules In Full"| President Obama; reclassify broadband; broadband internet; service providers; act considering | [Link](http://www.npr.org/sections/thetwo-way/2016/06/14/471286113/u-s-appeals-court-holds-up-net-neutrality-rules-in-full?utm_source=facebook.com&utm_medium=social&utm_campaign=npr&utm_term=nprnews&utm_content=20160614)|
@@ -13,8 +17,7 @@
 |9.|"A Sticky Stringy Quandary"| horrible performance; string situation; deriving mechanism; pretty printer; show class | [Link](http://www.stephendiehl.com/posts/strings.html) |
 
 
-<img src="http://i.imgur.com/v5e7kLP.png" />
-<img src="http://i.imgur.com/ACwzxZ9.png" />
+*Note: my output isn't a nicely formatted table like this yet.*
 
 
 Installation
