@@ -19,11 +19,12 @@ import pandas
 # Goose is a library to extract data and media from sites
 goose = Goose()
 
-from text_cleanup import (tokenize_individual_text,
+from newscomb.text_cleanup import (tokenize_individual_text,
                           normalize_individual_text,
                           remove_stopwords_from_individual_text,
                           normalize_all_texts_for_collocation,
                           normalize_individual_text_by_title,
+                          normalize_all_texts_for_lda,
                           normalize_titles)
 
 
@@ -135,7 +136,7 @@ def create_document_term_matrix(texts):
     return corpus
 
 
-def display_LDA_topics(topic_word):
+def display_LDA_topics(topic_word, vocab):
     '''
     Given list of topic words from LDA model, PRINTS topic words for topic (no return)
     '''

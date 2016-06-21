@@ -81,11 +81,16 @@ def normalize_all_texts_for_lda(texts):
     Given a list of texts: tokenize, normalize, remove stopwords, and lemmatize each text.
     '''
 
-    normalized_texts = normalize_all_texts_for_collocation(texts)
-    texts_without_stopwords = [remove_stopwords_from_individual_text(text) for text in normalized_texts]
-    lemmatized_texts = [lemmatize_individual_text(text) for text in texts_without_stopwords]
+    lda_texts = []
+    for text in texts:
+        raw_tokens = tokenize_individual_text(text)
+        normalized_tokens = normalize_individual_text(raw_tokens)
+        tokens_minus_stopwords = remove_stopwords_from_individual_text(normalized_tokens)
+        lemmatized_texts = lemmatize_individual_text(tokens_minus_stopwords)
 
-    return lemmatized_texts
+        lda_texts.append(lemmatized_texts)
+
+    return lda_texts
 
 
 def normalize_titles(title_list):
