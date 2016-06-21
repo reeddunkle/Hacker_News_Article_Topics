@@ -29,7 +29,6 @@ MarkupSafe==0.23
 mistune==0.7.2
 nbconvert==4.2.0
 nbformat==4.0.1
--e git+https://github.com/reeddunkle/Hacker_News_Topic_Model.git@cdca6452dc1299d56970ea52ebdb23c71ddf1e8e#egg=newscomb
 nltk==3.2.1
 notebook==4.2.0
 numpy==1.11.0
