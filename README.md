@@ -1,6 +1,5 @@
 # Hacker News Key Words
 
-<img src="http://i.imgur.com/8u34rvs.gif" />
 <img src="http://i.imgur.com/JabwHTV.gif" />
 
 
@@ -56,6 +55,8 @@ pip install -r requirements.txt
 Running
 ----
 
+<img src="http://i.imgur.com/8u34rvs.gif" />
+
 Right now the functionality of scraping and topic modeling is separate.
 
 To scrape, run this with an optional `--count` argument for number of articles to scrape:
@@ -64,7 +65,7 @@ To scrape, run this with an optional `--count` argument for number of articles t
 python newscomb/hn_scrape.py --count 20
 ```
 
-After you've done this, you can extract and display keywords from the articles:
+After you've done this, you can extract and display keywords from the articles (see first gif):
 
 ```
 python newscomb/topic_modeling.py
