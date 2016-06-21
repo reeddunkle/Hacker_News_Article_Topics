@@ -55,29 +55,18 @@ Running
 
 Right now the functionality of scraping and topic modeling is separate.
 
-To scrape
+To scrape, run this with an optional `--count` argument for number of articles to scrape:
 
+```
+python newscomb/hn_scrape.py --count 20
+```
 
+After you've done this, you can extract and display keywords from the articles:
 
+```
+python newscomb/topic_modeling.py
+```
 
-----
-
-Right now it tries to identify key words from an article.
-You can see the original articles to compare:
-
-These key words are arrived at using NLTK's collocations. I established custom bigram measures, playing around with all of the options I found [here](http://www.nltk.org/howto/collocations.html). That page explains the logic behind the various ways you can refine the collocation measures for precision.
-
-I got the best results by
-
-- Filtering out stop words
-- Collecting bigrams (versus tri-, quad-, n-grams)
-- Using NLTK's BigramCollocationFinder with a window_size of 2
-- Leaving the frequency filter (freq) at 1
-- Collecting the 5 best
-
-These last three choices are all very debatable design desicions. I got quite good results with a window_size of 5 and freq of 1.
-
-And looking at the results above, maybe it is better to only display the 4 best results, maybe less.
 
 Known bugs
 ----
@@ -87,4 +76,3 @@ Known bugs
 - *Some of the articles cause Goose to reach max recursion depth: RuntimeError
 - Sometimes an article's HTML isn't parsed correctly and Goose is passed an int instead of a string: TypeError
 - IndexErrors were thrown, but I didn't log this error
-- The 'Descendants' category isn't reliable:

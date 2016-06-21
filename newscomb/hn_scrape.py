@@ -25,6 +25,8 @@ def scrape_HN_articles_write_to_csv(count=0):
     else:
         limit = None
 
+    print("Limit is set to: {}".format(limit))
+
     top_stories = requests.get(ROOT_URL + 'topstories.json').json()
     articles = []
 
@@ -49,13 +51,13 @@ def scrape_HN_articles_write_to_csv(count=0):
                print('wrong password')
 
     df = pd.DataFrame.from_records(articles, columns=['by', 'descendants', 'id', 'score', 'time', 'title', 'type', 'url', 'html'])
-    df.to_csv("../data/articles.csv", encoding="utf-8", index=False)
+    df.to_csv("data/articles.csv", encoding="utf-8", index=False)
 
 
 def gen_parser():
 
     parser = argparse.ArgumentParser(description='Manipulate an image.')
-    parser.add_argument('--count', dest='count', required=False, help='Set the number of top articles to scrape. If none given, will scrape all')
+    parser.add_argument('--count', dest='count', required=False, nargs='?', default=0, type=int, help='Set the number of top articles to scrape. If none given, will scrape all')
 
     return parser
 

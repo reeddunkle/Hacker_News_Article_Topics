@@ -123,10 +123,10 @@ def display_collocations(articles):
 
 if __name__ == '__main__':
 
-    dataframe = pandas.read_csv("../data/articles.csv", index_col=False)
+    dataframe = pandas.read_csv("data/articles.csv", index_col=False)
 
     html_list = dataframe['html']
-    articles_list = extract_title_and_text_from_html(html_list[:20]) # 20 for testing
+    articles_list = extract_title_and_text_from_html(html_list)
 
     tuple_of_lists = transpose_tuples_lists(articles_list)
     title_list, text_list = tuple_of_lists

@@ -57,3 +57,27 @@ June 18, 2016
 I finish the custom model, but discover various bugs in the way I was storing the articles with their titles. I also end up adding new text cleaning methods. By the end of the day, the collocation-derived topic model looks pretty darn good. It isn't perfect. But I'm pretty happy with it.
 
 Now back to the LDA model...
+
+
+June 20, 2016
+----
+
+<img src="http://i.imgur.com/v5e7kLP.png" />
+<img src="http://i.imgur.com/ACwzxZ9.png" />
+
+Right now it tries to identify key words from an article.
+You can see the original articles to compare:
+
+These key words are arrived at using NLTK's collocations. I established custom bigram measures, playing around with all of the options I found [here](http://www.nltk.org/howto/collocations.html). That page explains the logic behind the various ways you can refine the collocation measures for precision.
+
+I got the best results by
+
+- Filtering out stop words
+- Collecting bigrams (versus tri-, quad-, n-grams)
+- Using NLTK's BigramCollocationFinder with a window_size of 2
+- Leaving the frequency filter (freq) at 1
+- Collecting the 5 best
+
+These last three choices are all very debatable design desicions. I got quite good results with a window_size of 5 and freq of 1.
+
+And looking at the results, maybe it is better to only display the 4 best results, maybe less.

@@ -7,6 +7,8 @@ TODO
 
   For now I have to accept this, but it is a major weakness in code. Ideally I would understand what is causing these errors, and rather than passing over those articles, I could handle them differently.
 
+- [X] The 'Descendants' category isn't reliable:
+
 - [X] Create topic models using NLTK's collocations.
 
 - [X] The LDA library [API](https://pythonhosted.org/lda/api.html) requires text to be in a certain form. Right now I'm not certain what that form is, so I'm working on that. **I've made sense of most of this now. More to come on it. (6/19/16)**
