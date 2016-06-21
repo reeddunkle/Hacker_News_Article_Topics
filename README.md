@@ -59,7 +59,7 @@ python newscomb/topic_modeling.py
 Known bugs
 ----
 
-- I need to clean my titles more carefully: see No. 2, 3, 6, 7 above
+- I need to clean my titles differently: currently I clean out numbers and some proper nouns
 - I'm not sure what happened with No. 4 above. It seems like an issue with Goose
 - *Some of the articles cause Goose to reach max recursion depth: RuntimeError
 - Sometimes an article's HTML isn't parsed correctly and Goose is passed an int instead of a string: TypeError
