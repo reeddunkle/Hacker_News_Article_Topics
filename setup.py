@@ -21,6 +21,7 @@ setup(
     description='Hacker News Topic Modeling',
     long_description='',
     packages=find_packages(),
+    install_requires=get_requirements(),
     zip_safe=False,
     include_package_data=True,
     platforms='any')
