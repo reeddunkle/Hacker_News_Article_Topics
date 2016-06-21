@@ -1,17 +1,9 @@
 # Hacker News Key Words
 
-
-<img src="http://i.imgur.com/v5e7kLP.png" />
-<img src="http://i.imgur.com/ACwzxZ9.png" />
-
-Right now it tries to identify key words from an article.
-You can see the original articles to compare:
-
-
 | No. | Title | Key Words | Original Article |
 | ----|----   |----         |----               |
 |1.|"Appeals court upholds FCC net neutrality order"| internet order; Chairman Tom; open internet; FCC chairman | [Link](http://www.politico.com/story/2016/06/court-upholds-obama-backed-net-neutrality-rules-224309) |
-|2.|"Appeals Court Holds Up Net Neutrality Rules In Full"| President Obama; reclassify broadband; broadband internet; service providers; act considering | [Link](http://www.npr.org/sections/thetwo-way/2016/06/14/471286113/u-s-appeals-court-holds-up-net-neutrality-rules-in-full?utm_source=facebook.com&utm_medium=social&utm_campaign=npr&utm_term=nprnews&utm_content=20160614) |
+|2.|"Appeals Court Holds Up Net Neutrality Rules In Full"| President Obama; reclassify broadband; broadband internet; service providers; act considering | [Link](http://www.npr.org/sections/thetwo-way/2016/06/14/471286113/u-s-appeals-court-holds-up-net-neutrality-rules-in-full?utm_source=facebook.com&utm_medium=social&utm_campaign=npr&utm_term=nprnews&utm_content=20160614)|
 |3.|"CS GPU Programming"| also discuss; arhcitecture high; beyond covering; equivalent systems; financial modeling | [Link](http://courses.cms.caltech.edu/cs179/)|
 |4.|"A few months ago I brought to light the insane state of today"| -- |[Link](https://plus.google.com/+ArtemRussakovskii/posts/VgrLdYcoifr)|
 |5.|"Project Successfully Completes Security Audit"| open source; sos fund; ncc group; serious issues; adoption matched |[Link](https://www.phpmyadmin.net/news/2016/6/13/phpmyadmin-project-successfully-completes-security-audit/) |
@@ -20,6 +12,58 @@ You can see the original articles to compare:
 |8.|"Checked C Microsoft Research"| system software; buffer overruns; compiler implementation; incorrect type; precise control | [Link](http://research.microsoft.com/en-us/projects/checkedc/)|
 |9.|"A Sticky Stringy Quandary"| horrible performance; string situation; deriving mechanism; pretty printer; show class | [Link](http://www.stephendiehl.com/posts/strings.html) |
 
+
+<img src="http://i.imgur.com/v5e7kLP.png" />
+<img src="http://i.imgur.com/ACwzxZ9.png" />
+
+
+Installation
+----
+
+Clone the repository:
+
+```
+git clone https://github.com/reeddunkle/Hacker_News_Keywords.git
+```
+
+Navigate into the directory:
+
+```
+cd Hacker_News_Keywords
+```
+
+Make a virtual environment for the project (recommended):
+
+```
+virtualenv venv
+```
+
+Activate venv:
+
+```
+source venv/bin/activate
+```
+
+Install dependencies:
+
+```
+pip install -r requirements.txt
+```
+
+Running
+----
+
+Right now the functionality of scraping and topic modeling is separate.
+
+To scrape
+
+
+
+
+----
+
+Right now it tries to identify key words from an article.
+You can see the original articles to compare:
 
 These key words are arrived at using NLTK's collocations. I established custom bigram measures, playing around with all of the options I found [here](http://www.nltk.org/howto/collocations.html). That page explains the logic behind the various ways you can refine the collocation measures for precision.
 

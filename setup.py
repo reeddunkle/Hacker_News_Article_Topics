@@ -1,9 +1,9 @@
 """
-newscomb
-~~~~~~~~
-Topic modeling for Hacker News articles
-"""
+    newscomb
+    ~~~~~~~~
 
+    Topic modeling for Hacker News articles
+"""
 from setuptools import setup, find_packages
 
 
@@ -14,7 +14,7 @@ def get_requirements(suffix=''):
 
 setup(
     name='newscomb',
-    version='0.0.1',
+    version='0.8',
     url='https://github.com/reeddunkle/Hacker_News_Topic_Model',
     author='Reed Dunkle',
     author_email='reeddunkle@gmail.com',
