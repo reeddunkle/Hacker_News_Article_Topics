@@ -21,26 +21,29 @@ def scrape_HN_articles_write_to_csv(count=0):
     and writes it to a .csv file.
     '''
     if count > 0:
-        limit = count
+        limit = int(count)
     else:
         limit = None
 
     print("Limit is set to: {}".format(limit))
 
     top_stories = requests.get(ROOT_URL + 'topstories.json').json()
+
+
     articles = []
 
     for article_id in top_stories[:limit]:
         article = requests.get(ROOT_URL + "item/" + str(article_id) + ".json").json()
+        article_type = article['type']
 
-        if 'url' in article:
+        if 'url' in article and article_type == 'story':
             article_url = article['url']
             try:
                 article_page = requests.get(article_url)
                 content = article_page.content.decode('utf-8', 'ignore')
 
                 article_row = [article['by'], article['descendants'], article['id'], article['score'],
-                     article['time'], article['title'], article['type'], article_url, content]
+                     article['time'], article['title'], article_type, article_url, content]
 
                 articles.append(article_row)
 
@@ -57,7 +60,7 @@ def scrape_HN_articles_write_to_csv(count=0):
 def gen_parser():
 
     parser = argparse.ArgumentParser(description='Manipulate an image.')
-    parser.add_argument('--count', dest='count', required=False, nargs='?', default=0, type=int, help='Set the number of top articles to scrape. If none given, will scrape all')
+    parser.add_argument('--count', dest='count', required=False, nargs='?', default=0, type=str, help='Set the number of top articles to scrape. If none given, will scrape all')
 
     return parser
 
