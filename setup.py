@@ -14,7 +14,7 @@ def get_requirements(suffix=''):
 
 setup(
     name='newscomb',
-    version='0.8',
+    version='0.0.8',
     url='https://github.com/reeddunkle/Hacker_News_Article_Topics',
     author='Reed Dunkle',
     author_email='reeddunkle@gmail.com',

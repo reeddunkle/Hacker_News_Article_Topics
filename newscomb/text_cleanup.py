@@ -5,6 +5,7 @@
     Clean text for processing.
 """
 
+from newscomb.word_processing import tokenize_individual_text
 import nltk
 import stop_words
 import multiprocessing
