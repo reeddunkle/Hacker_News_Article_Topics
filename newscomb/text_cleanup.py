@@ -5,15 +5,46 @@
     Clean text for processing.
 """
 
+from newscomb.word_processing import tokenize_individual_text
 import nltk
 import stop_words
+import multiprocessing
+from goose import Goose
 
-def tokenize_individual_text(raw_text):
+# Goose is a library to extract text from articles
+goose = Goose()
+
+
+
+def safely_get_content(html):
     '''
-    Given raw_text, a string, return a list of tokens.
+    Given html: Uses goose to extract title and clean text.
     '''
 
-    return sum(map(nltk.word_tokenize, nltk.sent_tokenize(raw_text)), [])
+    try:
+        article = goose.extract(raw_html=html)
+        title = article.title
+        text = article.cleaned_text
+        content = (title, text)
+
+    except (IndexError, TypeError, RuntimeError):
+        return None
+
+    return content
+
+
+def extract_title_and_text_from_html(html_list):
+    '''
+    Given a list of each article's html, returns list of tuples
+    containing extracted titles and text.
+    '''
+
+    pool = multiprocessing.Pool(12)
+
+    articles_list = pool.map(safely_get_content, html_list)
+    articles_list = [a for a in articles_list if a is not None]
+
+    return articles_list
 
 
 def normalize_individual_text(tokens):
@@ -48,6 +79,16 @@ def remove_stopwords_from_individual_text(tokens):
     return filter(lambda w: w not in en_stop_words, tokens)
 
 
+def lemmatize_individual_text(tokens):
+    '''
+    Given a list of tokens, return a list of lemmatized strings.
+    '''
+
+    lemmatizer = nltk.WordNetLemmatizer()
+
+    return map(lemmatizer.lemmatize, tokens)
+
+
 def normalize_all_texts_for_collocation(articles):
     '''
     Given a tuple of title list and text list, tokenize and normalize each text.
@@ -64,6 +105,23 @@ def normalize_all_texts_for_collocation(articles):
         normalized_texts.append(normalized_tokens)
 
     return normalized_texts
+
+
+def normalize_all_texts_for_lda(texts):
+    '''
+    Given a list of texts: tokenize, normalize, remove stopwords, and lemmatize each text.
+    '''
+
+    lda_texts = []
+    for text in texts:
+        raw_tokens = tokenize_individual_text(text)
+        normalized_tokens = normalize_individual_text(raw_tokens)
+        tokens_minus_stopwords = remove_stopwords_from_individual_text(normalized_tokens)
+        lemmatized_texts = lemmatize_individual_text(tokens_minus_stopwords)
+
+        lda_texts.append(lemmatized_texts)
+
+    return lda_texts
 
 
 def normalize_titles(title_list):
