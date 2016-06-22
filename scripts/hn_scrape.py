@@ -8,7 +8,6 @@
 import argparse
 import requests
 import pandas as pd
-from exceptions import TypeError, RuntimeError
 
 
 

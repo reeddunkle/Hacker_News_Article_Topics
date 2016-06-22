@@ -7,13 +7,43 @@
 
 import nltk
 import stop_words
+import multiprocessing
+from goose import Goose
 
-def tokenize_individual_text(raw_text):
+# Goose is a library to extract text from articles
+goose = Goose()
+
+
+
+def safely_get_content(html):
     '''
-    Given raw_text, a string, return a list of tokens.
+    Given html: Uses goose to extract title and clean text.
     '''
 
-    return sum(map(nltk.word_tokenize, nltk.sent_tokenize(raw_text)), [])
+    try:
+        article = goose.extract(raw_html=html)
+        title = article.title
+        text = article.cleaned_text
+        content = (title, text)
+
+    except (IndexError, TypeError, RuntimeError):
+        return None
+
+    return content
+
+
+def extract_title_and_text_from_html(html_list):
+    '''
+    Given a list of each article's html, returns list of tuples
+    containing extracted titles and text.
+    '''
+
+    pool = multiprocessing.Pool(12)
+
+    articles_list = pool.map(safely_get_content, html_list)
+    articles_list = [a for a in articles_list if a is not None]
+
+    return articles_list
 
 
 def normalize_individual_text(tokens):
