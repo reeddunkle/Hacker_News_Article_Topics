@@ -18,22 +18,17 @@ Navigate into the directory:
 cd Hacker_News_Keywords
 ```
 
-Make a virtual environment for the project (recommended):
+Make a virtual environment and activate it (recommended):
 
 ```
 virtualenv venv
-```
-
-Activate venv:
-
-```
 source venv/bin/activate
 ```
 
 Install dependencies:
 
 ```
-pip install -r requirements.txt
+pip install .
 ```
 
 Running
