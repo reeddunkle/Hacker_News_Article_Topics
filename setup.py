@@ -14,11 +14,11 @@ def get_requirements(suffix=''):
 
 setup(
     name='newscomb',
-    version='0.8',
-    url='https://github.com/reeddunkle/Hacker_News_Topic_Model',
+    version='0.0.8',
+    url='https://github.com/reeddunkle/Hacker_News_Article_Topics',
     author='Reed Dunkle',
     author_email='reeddunkle@gmail.com',
-    description='Hacker News Topic Modeling',
+    description='Hacker News Article Topics',
     long_description='',
     packages=find_packages(),
     install_requires=get_requirements(),
