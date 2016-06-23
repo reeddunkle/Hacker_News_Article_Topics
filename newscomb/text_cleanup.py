@@ -52,13 +52,20 @@ def extract_text_from_html(articles):
     return articles_list
 
 
+def clean_and_lowercase_token(token):
+    '''Given a token, returns token with clean and lowercase content.'''
+
+    printable = set(string.printable)
+
+    return ''.join([c.lower() for c in token if c in printable])
+
+
 def normalize_individual_text(tokens):
     '''
     Given tokens, a list of strings of all words in a text, returns a normalized list of tokens.
     '''
 
-    filtered_list = filter(lambda w: w.isalpha(), tokens)
-    lowercased_list_of_tokens = map(lambda w: w.lower(), filtered_list)
+    lowercased_list_of_tokens = [clean_and_lowercase_token(token) for token in tokens]
 
     return lowercased_list_of_tokens
 

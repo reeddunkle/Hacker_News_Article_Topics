@@ -51,8 +51,13 @@ def scrape_HN_articles_write_to_csv(count=0):
 
             # A ContentDecoding exception seems to arise when attempting to scrape
             # an site that requires some sort of authentication (throws 'wrong password')
-            except requests.exceptions.ContentDecodingError as e:
-               print('wrong password')
+            except requests.exceptions.ContentDecodingError:
+               print('requests.exceptions.ContentDecodingError: wrong password\nSkipping article...')
+               continue
+
+            except requests.exceptions.SSLError:
+                print('requests.exceptions.SSLError: verification failed. Could be dangerous.\nSkipping article...')
+                continue
 
     df = pd.DataFrame.from_records(articles, columns=['by', 'descendants', 'id', 'score', 'time', 'title', 'type', 'url', 'html'])
     df.to_csv("data/articles.csv", encoding="utf-8", index=False)
@@ -72,5 +77,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
     count = args.count
 
-    if count.isdigit() and count >= 0:
-        scrape_HN_articles_write_to_csv(count)
+    scrape_HN_articles_write_to_csv(count)

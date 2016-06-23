@@ -11,6 +11,7 @@ from gensim import corpora
 from nltk.collocations import BigramCollocationFinder
 import numpy as np
 import nltk
+import os
 
 
 
@@ -46,6 +47,7 @@ def generate_collocations(tokens):
     bigram_measures = nltk.collocations.BigramAssocMeasures()
 
     # Best results with window_size, freq_filter of: (2,1) (2,2) (5,1)
+    # print(tokens)
     finder = BigramCollocationFinder.from_words(tokens, window_size = 2)
     finder.apply_word_filter(lambda w: len(w) < 3 or w.lower() in ignored_words)
     finder.apply_freq_filter(1)
@@ -61,28 +63,47 @@ def display_collocations(articles):
     PRINTS collocations (no return).
     '''
 
+    def clear_screen():
+        os.system('cls' if os.name == 'nt' else 'clear')
+
     for article in articles:
 
         title, text, url = article
 
         if title != '':
-            print('-' * 15)
-            print("Article: {}\n".format(title))
-            print("Link: {}\n".format(url))
-            print("Topics:")
 
-            colls = generate_collocations(text)
+            try:
+                clear_screen()
 
-            output = ""
-            for tup in colls:
-                word1, word2 = tup
-                output += "{} {}; ".format(word1, word2)
+                colls = generate_collocations(text)
 
-            print(output[:-2])
-            print('-'*15)
+                print('---------------\n')
+                print("ARTICLE: {}\n".format(title))
+                print("Link: {}\n".format(url))
+                print("Topics:")
+
+
+
+                output = ""
+                for tup in colls:
+                    word1, word2 = tup
+                    output += "{} {}; ".format(word1, word2)
+
+                print(output[:-2])
+                print('---------------\n')
+
+                print("Press ENTER for next article or any key to exit.")
+                user_input = raw_input("> ")
+                if user_input:
+                    exit(0)
+
+            except TypeError:
+                continue
 
         else:
-            pass
+            continue
+
+        clear_screen()
 
 
 """ For LDA"""
