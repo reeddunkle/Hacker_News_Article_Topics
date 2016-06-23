@@ -21,7 +21,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 if __name__ == '__main__':
 
-    title_list, text_list = extract_titles_and_text()
+    _, text_list = extract_titles_and_text()
     texts_for_LDA = normalize_all_texts_for_lda(text_list)
 
     # max_df excludes any word that appears more than x * 100 % of the time
