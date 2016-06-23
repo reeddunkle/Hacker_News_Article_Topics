@@ -5,27 +5,32 @@
     Clean text for processing.
 """
 
+
+
 from newscomb.word_processing import tokenize_individual_text
 import nltk
 import stop_words
 import multiprocessing
+import string
 from goose import Goose
 
 # Goose is a library to extract text from articles
+# TODO: Use beautifulsoup?
 goose = Goose()
 
 
 
-def safely_get_content(html):
+def safely_get_content(articles):
     '''
     Given html: Uses goose to extract title and clean text.
     '''
 
+    title, html, url = articles
+
     try:
         article = goose.extract(raw_html=html)
-        title = article.title
         text = article.cleaned_text
-        content = (title, text)
+        content = (title, text, url)
 
     except (IndexError, TypeError, RuntimeError):
         return None
@@ -33,7 +38,7 @@ def safely_get_content(html):
     return content
 
 
-def extract_title_and_text_from_html(html_list):
+def extract_text_from_html(articles):
     '''
     Given a list of each article's html, returns list of tuples
     containing extracted titles and text.
@@ -41,7 +46,7 @@ def extract_title_and_text_from_html(html_list):
 
     pool = multiprocessing.Pool(12)
 
-    articles_list = pool.map(safely_get_content, html_list)
+    articles_list = pool.map(safely_get_content, articles)
     articles_list = [a for a in articles_list if a is not None]
 
     return articles_list
@@ -89,22 +94,16 @@ def lemmatize_individual_text(tokens):
     return map(lemmatizer.lemmatize, tokens)
 
 
-def normalize_all_texts_for_collocation(articles):
+def normalize_text_for_collocation(title, text):
     '''
-    Given a tuple of title list and text list, tokenize and normalize each text.
+    Given text, cleans and prepares text for collocations.
     '''
 
-    title_list, text_list = articles
+    raw_tokens = tokenize_individual_text(text)
+    tokens_minus_title = normalize_individual_text_by_title(raw_tokens, title)
+    normalized_tokens = normalize_individual_text(tokens_minus_title)
 
-    normalized_texts = []
-    for i, text in enumerate(text_list):
-        raw_tokens = tokenize_individual_text(text)
-        tokens_minus_title = normalize_individual_text_by_title(raw_tokens, title_list[i])
-        normalized_tokens = normalize_individual_text(tokens_minus_title)
-
-        normalized_texts.append(normalized_tokens)
-
-    return normalized_texts
+    return normalized_tokens
 
 
 def normalize_all_texts_for_lda(texts):
@@ -113,6 +112,7 @@ def normalize_all_texts_for_lda(texts):
     '''
 
     lda_texts = []
+
     for text in texts:
         raw_tokens = tokenize_individual_text(text)
         normalized_tokens = normalize_individual_text(raw_tokens)
@@ -124,17 +124,35 @@ def normalize_all_texts_for_lda(texts):
     return lda_texts
 
 
-def normalize_titles(title_list):
+def normalize_title(title):
     '''
-    Given list of titles, returns list of text-normalized titles.
+    Given title, returns cleaned title.
     '''
 
-    clean_titles = []
+    printable = set(string.printable)
+    new_title = filter(lambda c: c in printable, title)
 
-    for t in title_list:
-        title_tokens = tokenize_individual_text(t)
-        normalized_title_tokens = filter(lambda w: w.isalpha(), title_tokens)
-        title_string = ' '.join(normalized_title_tokens)
-        clean_titles.append(title_string)
+    return new_title
 
-    return clean_titles
+
+def normalize_articles_for_collocation(articles):
+    '''
+    Given list of article tuples (title, text, url), returns list
+    of tuples with everything prepared for processing.
+    '''
+
+    clean_articles = []
+
+    for article in articles:
+
+        title, text, url = article
+
+        clean_title = normalize_title(title)
+        collocation_ready_text = normalize_text_for_collocation(clean_title, text)
+
+        clean_articles.append((clean_title, collocation_ready_text, url))
+
+
+    return clean_articles
+
+

@@ -1,3 +1,9 @@
+"""
+    word_processing
+    ~~~~~~~~~~~~~~~
+
+    Process text for keyword and LDA models
+"""
 
 
 
@@ -5,6 +11,8 @@ from gensim import corpora
 from nltk.collocations import BigramCollocationFinder
 import numpy as np
 import nltk
+
+
 
 def transpose_tuples_lists(tuple_list):
     '''
@@ -31,7 +39,7 @@ def tokenize_individual_text(raw_text):
 
 def generate_collocations(tokens):
     '''
-    Given list of tokens, return collocations
+    Given list of tokens, return collocations.
     '''
 
     ignored_words = nltk.corpus.stopwords.words('english')
@@ -49,25 +57,26 @@ def generate_collocations(tokens):
 
 def display_collocations(articles):
     '''
-    Given tuple containing title list and token list, PRINTS results (no return)
+    Given list of article tuples (title, text, url), generates and
+    PRINTS collocations (no return).
     '''
 
-    title_list, token_list = articles
+    for article in articles:
 
-    for i, tokens in enumerate(token_list):
-        if title_list[i] != '':
-            print('-'*15)
-            title = title_list[i]
-            print("Title: {}\n".format(title))
+        title, text, url = article
+
+        if title != '':
+            print('-' * 15)
+            print("Article: {}\n".format(title))
+            print("Link: {}\n".format(url))
             print("Topics:")
-            colls = generate_collocations(tokens)
+
+            colls = generate_collocations(text)
 
             output = ""
-
             for tup in colls:
                 word1, word2 = tup
                 output += "{} {}; ".format(word1, word2)
-
 
             print(output[:-2])
             print('-'*15)
@@ -76,10 +85,10 @@ def display_collocations(articles):
             pass
 
 
-""" This is for LDA"""
+""" For LDA"""
 def create_document_term_matrix(texts):
     '''
-    Given list of texts, returns a document-term matrix
+    Given list of texts, returns a document-term matrix.
     '''
 
     dictionary = corpora.Dictionary(texts)
@@ -90,10 +99,11 @@ def create_document_term_matrix(texts):
 
 def display_LDA_topics(topic_word, vocab):
     '''
-    Given list of topic words from LDA model, PRINTS topic words for topic (no return)
+    Given list of topic words from LDA model, PRINTS topic words for topic (no return).
     '''
 
     n_top_words = 34
+
     for i, topic_dist in enumerate(topic_word):
         topic_words = np.array(vocab)[np.argsort(topic_dist)][:-n_top_words:-1]
         print('Topic {}: {}'.format(i, ' '.join(topic_words)))

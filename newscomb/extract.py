@@ -1,26 +1,28 @@
 """
-    extract_titles_and_text
-    ~~~~~~~~~~~~~~~~~~~~~~~
+    extract
+    ~~~~~~~
 
     Extract titles and text from data/articles.csv
 """
 
 
 
-from newscomb.text_cleanup import extract_title_and_text_from_html
+from newscomb.text_cleanup import extract_text_from_html
 from newscomb.word_processing import transpose_tuples_lists
 import pandas
 
 
 
-def extract_titles_and_text():
+def extract_titles_text_and_urls():
 
     dataframe = pandas.read_csv("data/articles.csv", index_col=False)
 
     html_list = dataframe['html']
-    articles_list = extract_title_and_text_from_html(html_list)
+    title_list = dataframe['title']
+    url_list = dataframe['url']
 
-    tuple_of_lists = transpose_tuples_lists(articles_list)
-    title_list, text_list = tuple_of_lists
+    articles = list(tuple(zip(title_list, html_list, url_list)))
 
-    return (title_list, text_list)
+    articles_list = extract_text_from_html(articles)
+
+    return articles_list

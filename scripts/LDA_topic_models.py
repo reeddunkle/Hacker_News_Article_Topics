@@ -6,25 +6,24 @@
 """
 
 
-from newscomb.text_cleanup import (extract_title_and_text_from_html,
-                                  normalize_titles,
-                                  normalize_all_texts_for_lda)
-from newscomb.word_processing import (transpose_tuples_lists,
-                                     display_collocations,
-                                     display_LDA_topics)
-from newscomb.extract import extract_titles_and_text
-import lda
-from sklearn.feature_extraction.text import CountVectorizer
 
+from newscomb.text_cleanup import normalize_all_texts_for_lda
+from newscomb.word_processing import display_LDA_topics
+from newscomb.extract import extract_titles_text_and_urls
+from sklearn.feature_extraction.text import CountVectorizer
+import lda
 
 
 
 if __name__ == '__main__':
 
-    _, text_list = extract_titles_and_text()
+    articles_list = extract_titles_text_and_urls()
+
+    titles_list, text_list, urls_list = zip(*articles_list)
+
     texts_for_LDA = normalize_all_texts_for_lda(text_list)
 
-    # max_df excludes any word that appears more than x * 100 % of the time
+    # max_df excludes any word that appears more than (x * 100)% of the time
     # min_df requires a word to appear at least y times
     cv = CountVectorizer(max_df=.4, min_df=3)
 
