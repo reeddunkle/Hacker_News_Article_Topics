@@ -60,6 +60,21 @@ And word clouds!
 python scripts/word_cloud.py
 ```
 
+**Note**
+I get this error from the wordcloud library:
+
+```
+ImportError: The _imagingft C module is not installed
+```
+
+It can be solved (for me) by re-installing pillow without cache:
+
+```
+pip uninstall pillow
+pip install --no-cache-dir pillow
+```
+
+
 
 Known bugs
 ----
