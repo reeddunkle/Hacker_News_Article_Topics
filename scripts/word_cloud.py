@@ -21,7 +21,7 @@ if __name__ == '__main__':
     titles_tuples, text_tuples, urls_tuples = zip(*collocation_ready_articles)
 
     titles_list = list(titles_tuples)
-    text_list = list(text_list)
+    text_list = list(text_tuples)
 
 
     text = ' '.join(sum(text_list, []))

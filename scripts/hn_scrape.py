@@ -10,6 +10,7 @@
 import argparse
 import requests
 import pandas as pd
+import os
 
 
 
@@ -21,6 +22,7 @@ def scrape_HN_articles_write_to_csv(count=0):
     Scrapes top stories on Hacker News, creates dataframe with content,
     and writes it to a .csv file.
     '''
+
     if count > 0:
         limit = int(count)
     else:
@@ -51,19 +53,33 @@ def scrape_HN_articles_write_to_csv(count=0):
 
             # A ContentDecoding exception seems to arise when attempting to scrape
             # an site that requires some sort of authentication (throws 'wrong password')
-            except requests.exceptions.ContentDecodingError:
-               print('requests.exceptions.ContentDecodingError: wrong password\nSkipping article...')
+            except requests.exceptions.ContentDecodingError as e:
+               print('{}: Wrong password\nSkipping article...'.format(e))
                continue
 
-            except requests.exceptions.SSLError:
-                print('requests.exceptions.SSLError: verification failed. Could be dangerous.\nSkipping article...')
+            except requests.exceptions.SSLError as e:
+                print('{}: Verification failed. Could be dangerous.\nSkipping article...'.format(e))
                 continue
 
+            except requests.exceptions.ConnectionError as e:
+                prrint('{} Connection reset by peer. This is a server-side error.\nSkipping article...'.format(e))
+
+
     df = pd.DataFrame.from_records(articles, columns=['by', 'descendants', 'id', 'score', 'time', 'title', 'type', 'url', 'html'])
+
+    try:
+        os.makedirs("data")
+
+    except OSError:
+        pass
+
     df.to_csv("data/articles.csv", encoding="utf-8", index=False)
 
 
 def gen_parser():
+    '''
+    Creates command-line parser to access --count flag.
+    '''
 
     parser = argparse.ArgumentParser(description='Manipulate an image.')
     parser.add_argument('--count', dest='count', required=False, nargs='?', default=0, type=str, help='Set the number of top articles to scrape. If none given, will scrape all')
