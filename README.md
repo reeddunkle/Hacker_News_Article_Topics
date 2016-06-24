@@ -36,7 +36,7 @@ pip install .
 Running
 ----
 
-To scrape, run this with an optional `--count` argument for number of articles to scrape:
+To scrape, run this with an optional `--count` argument to set the number of articles to scrape:
 
 ```
 python scripts/hn_scrape.py --count 20
