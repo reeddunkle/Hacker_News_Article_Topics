@@ -1,5 +1,7 @@
 # Hacker News Article Topics
 
+<img src="http://i.imgur.com/TxS4faf.png" />
+
 <img src="http://i.imgur.com/MppVw4T.gif" />
 
 
@@ -34,10 +36,6 @@ pip install .
 Running
 ----
 
-<img src="http://i.imgur.com/vbMzCNR.gif" />
-
-
-
 To scrape, run this with an optional `--count` argument for number of articles to scrape:
 
 ```
@@ -55,6 +53,11 @@ You can also generate an LDA topic model:
 ```
 python scripts/LDA_topic_models.py
 ```
+
+And word clouds!
+
+```
+python scripts/word_cloud.py
 
 Known bugs
 ----

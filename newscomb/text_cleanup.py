@@ -14,9 +14,7 @@ import multiprocessing
 import string
 from goose import Goose
 
-# Goose is a library to extract text from articles
-# TODO: Use beautifulsoup?
-goose = Goose()
+goose = Goose()  # Goose is a library to extract text from articles
 
 
 
@@ -161,5 +159,3 @@ def normalize_articles_for_collocation(articles):
 
 
     return clean_articles
-
-

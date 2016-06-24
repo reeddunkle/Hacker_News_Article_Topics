@@ -7,27 +7,11 @@
 
 
 
-from gensim import corpora
 from nltk.collocations import BigramCollocationFinder
 import numpy as np
 import nltk
 import os
 
-
-
-def transpose_tuples_lists(tuple_list):
-    '''
-    Given a list of tuples, return a single tuple of lists.
-    '''
-
-    title_list = []
-    article_list = []
-
-    for title, article in tuple_list:
-        title_list.append(title)
-        article_list.append(article)
-
-    return (title_list, article_list)
 
 
 def tokenize_individual_text(raw_text):
@@ -76,7 +60,7 @@ def display_collocations(articles):
 
                 colls = generate_collocations(text)
 
-                print('---------------')
+                print('---------------\n')
                 print("ARTICLE: {}\n".format(title))
                 print("Link: {}\n".format(url))
                 print("Topics:")
@@ -103,18 +87,6 @@ def display_collocations(articles):
             continue
 
         clear_screen()
-
-
-""" For LDA"""
-def create_document_term_matrix(texts):
-    '''
-    Given list of texts, returns a document-term matrix.
-    '''
-
-    dictionary = corpora.Dictionary(texts)
-    corpus = [dictionary.doc2bow(text) for text in texts]
-
-    return corpus
 
 
 def display_LDA_topics(topic_word, vocab):

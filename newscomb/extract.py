@@ -8,7 +8,6 @@
 
 
 from newscomb.text_cleanup import extract_text_from_html
-from newscomb.word_processing import transpose_tuples_lists
 import pandas
 
 
@@ -21,7 +20,7 @@ def extract_titles_text_and_urls():
     title_list = dataframe['title']
     url_list = dataframe['url']
 
-    articles = list(tuple(zip(title_list, html_list, url_list)))
+    articles = list(zip(title_list, html_list, url_list))
 
     articles_list = extract_text_from_html(articles)
 

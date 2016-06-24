@@ -1,5 +1,3 @@
-<img src="http://i.imgur.com/TxS4faf.png">
-
 ## LOG
 
 A place to document some of the interesting stages of this project
@@ -8,7 +6,7 @@ A place to document some of the interesting stages of this project
 June 2, 2016
 ----
 
-I was asked to present on this at [RC](https://www.recurse.com/). My collaborator and I wanted something more interesting to show than our fragile scraper, so we filtered out the stop words, compiled all of the remaining article text into one giant string, and rendered the word cloud above.
+I presented on this at [RC](https://www.recurse.com/). My collaborator and I wanted something more interesting to show than our fragile scraper, so we filtered out the stop words, compiled all of the remaining article text into one giant string, and rendered the word cloud above.
 
 Dan leaves for his new job, and I don't touch it for a while.
 
@@ -20,7 +18,7 @@ June 14, 2016
 
 I am set on trying to use the [LDA](https://pythonhosted.org/lda/index.html) library that Dan had showed me. It promises to accomplish a lot, and seems to only require that I clean the text. The text needs to be coerced into a structure called a document-term matrix, but I'll get to that later...
 
-Rachel looks around the NLTK for ideas, and suggests their collocation models.
+Rachel looks around the NLTK for ideas, and suggests trying its collocation models.
 
 
 June 15, 2016

@@ -18,7 +18,6 @@ import lda
 if __name__ == '__main__':
 
     articles_list = extract_titles_text_and_urls()
-
     titles_list, text_list, urls_list = zip(*articles_list)
 
     texts_for_LDA = normalize_all_texts_for_lda(text_list)
