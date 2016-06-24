@@ -60,7 +60,7 @@ def display_collocations(articles):
 
                 colls = generate_collocations(text)
 
-                print('---------------\n')
+                print('---------------')
                 print("ARTICLE: {}\n".format(title))
                 print("Link: {}\n".format(url))
                 print("Topics:")
