@@ -58,6 +58,8 @@ And word clouds!
 
 ```
 python scripts/word_cloud.py
+```
+
 
 Known bugs
 ----
