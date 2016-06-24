@@ -62,7 +62,7 @@ def scrape_HN_articles_write_to_csv(count=0):
                 continue
 
             except requests.exceptions.ConnectionError as e:
-                prrint('{} Connection reset by peer. This is a server-side error.\nSkipping article...'.format(e))
+                print('{} Connection reset by peer. This is a server-side error.\nSkipping article...'.format(e))
 
 
     df = pd.DataFrame.from_records(articles, columns=['by', 'descendants', 'id', 'score', 'time', 'title', 'type', 'url', 'html'])
