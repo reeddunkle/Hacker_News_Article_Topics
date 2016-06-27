@@ -3,9 +3,9 @@
 <img src="http://i.imgur.com/TxS4faf.png" />
 
 <img src="http://i.imgur.com/51NBQrR.png" />
-(Sample of 409 articles, June 26, 2016. The UK referendum was 3 days ago, June 23.)
+(Sample of 409 articles, June 26, 2016. The UK referendum was June 23.)
 
-<img src="http://i.imgur.com/MppVw4T.gif" />
+<img src="http://i.imgur.com/erbWT8A.gif" />
 
 
 Installation
@@ -98,4 +98,5 @@ pip install --no-cache-dir pillow
 Known bugs
 ----
 
+- Speed. Working a couple of dozen articles is manageable, but processing hundreds take too long
 - Goose just isn't cutting it: I'm excited about the prospect of a Python3 library I found today called [newspaper](https://github.com/codelucas/newspaper)

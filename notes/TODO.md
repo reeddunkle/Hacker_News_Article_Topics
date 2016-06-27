@@ -1,11 +1,17 @@
 TODO
 ----
 
-- [ ] Create topic models using LDA library *ideally*. If this library won't behave, I'll implement a custom script.
+- [ ] Create article objects to hold keywords, tokens, and all of the properties I need
+
+- [ ] This will allow user to navigate back and forth between keywords, rather than going only in one direction through them. (The way it stands, it is neat, but it isn't very useful.)
+
+- [ ] Collect everything the word cloud needs as the articles are scraped to possibly speed this up.
 
 - [ ] I feel uneasy about the way that I'm handling the exceptions that some of these articles are throwing (see below). This seems to be mainly because of Goose.
 
   For now I have to accept this, but it is a major weakness in code. Ideally I would understand what is causing these errors, and rather than passing over those articles, I could handle them differently.
+
+- [X] Create topic models using LDA library. If this library won't behave, I'll implement a custom script.
 
 - [X] The 'Descendants' category isn't reliable:
 
