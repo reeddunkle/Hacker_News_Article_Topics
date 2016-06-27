@@ -28,11 +28,11 @@ def scrape_HN_articles_write_to_csv(count=0):
     else:
         limit = None
 
-    print("Limit is set to: {}".format(limit))
+    print("Limit: {}".format(limit))
 
     top_stories = requests.get(ROOT_URL + 'topstories.json').json()
 
-
+    article_count = 0
     articles = []
 
     for article_id in top_stories[:limit]:
@@ -50,21 +50,25 @@ def scrape_HN_articles_write_to_csv(count=0):
 
                 articles.append(article_row)
 
+                article_count += 1
+                print("Articles scraped: {}\r".format(article_count))
+
 
             # A ContentDecoding exception seems to arise when attempting to scrape
             # an site that requires some sort of authentication (throws 'wrong password')
             except requests.exceptions.ContentDecodingError as e:
-               print('{}: Wrong password\nSkipping article...'.format(e))
+               print('{}: Wrong password\nSkipping article...\n'.format(e))
                continue
 
             except requests.exceptions.SSLError as e:
-                print('{}: Verification failed. Could be dangerous.\nSkipping article...'.format(e))
+                print('{}: Verification failed. Could be dangerous.\nSkipping article...\n'.format(e))
                 continue
 
             except requests.exceptions.ConnectionError as e:
-                print('{} Connection reset by peer. This is a server-side error.\nSkipping article...'.format(e))
+                print('{} Connection reset by peer. This is a server-side error.\nSkipping article...\n'.format(e))
 
 
+    print("Total number scraped: {}".format(article_count))
     df = pd.DataFrame.from_records(articles, columns=['by', 'descendants', 'id', 'score', 'time', 'title', 'type', 'url', 'html'])
 
     try:

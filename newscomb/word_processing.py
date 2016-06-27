@@ -49,9 +49,12 @@ def display_collocations(articles):
     def clear_screen():
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    for article in articles:
+    total = len(articles)
+
+    for i, article in enumerate(articles):
 
         title, text, url = article
+        article_number = i + 1
 
         if title != '':
 
@@ -60,8 +63,9 @@ def display_collocations(articles):
 
                 colls = generate_collocations(text)
 
+                print("Article {}/{}".format(article_number, total))
                 print('---------------')
-                print("ARTICLE: {}\n".format(title))
+                print("{}\n".format(title))
                 print("Link: {}\n".format(url))
                 print("Topics:")
 
@@ -96,4 +100,4 @@ def display_LDA_topics(topic_word, vocab, number_words):
 
     for i, topic_dist in enumerate(topic_word):
         topic_words = np.array(vocab)[np.argsort(topic_dist)][:-number_words:-1]
-        print('Topic {}: {}'.format(i, ' '.join(topic_words)))
+        print('Topic {}: {}\n'.format(i, ' '.join(topic_words)))

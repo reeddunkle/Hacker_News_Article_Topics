@@ -2,6 +2,10 @@
 
 <img src="http://i.imgur.com/TxS4faf.png" />
 
+<img src="http://i.imgur.com/51NBQrR.png" />
+
+(Sample of 409 articles, June 26, 2016. The UK referendum was 3 days ago, June 23.)
+
 <img src="http://i.imgur.com/MppVw4T.gif" />
 
 
@@ -48,6 +52,8 @@ python scripts/hn_scrape.py --count 20
 
 
 You can generate a topic models for the corpus of articles scraped.
+
+The more articles you have scraped, the better this works. Be warned: scraping hundreds of articles can take a couple of minutes.
 
 The required flags are `--topics` (`-t`) and `--words` (`-w`)
 
