@@ -38,7 +38,7 @@ Running
 
 ### Scrape articles from Hacker News
 
-To scrape, run this with an optional `--count` (-c) argument to set the number of articles to scrape:
+To scrape, run this with an optional `--count` (`-c`) argument to set the number of articles to scrape:
 
 ```
 python scripts/hn_scrape.py --count 20
@@ -48,7 +48,8 @@ python scripts/hn_scrape.py --count 20
 
 
 You can generate a topic models for the corpus of articles scraped.
-The required flags are `--topics` (-t) and `--words` (-w)
+
+The required flags are `--topics` (`-t`) and `--words` (`-w`)
 
 - `-t` sets the number of topics to generate from the corpus
 - `-w` sets the numbers of words to display from each topic
