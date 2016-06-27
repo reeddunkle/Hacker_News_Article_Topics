@@ -98,6 +98,8 @@ def display_LDA_topics(topic_word, vocab, number_words):
     Given list of topic words from LDA model, PRINTS topic words for topic (no return).
     '''
 
+    print("LDA Topic Model")
+    print("-"*15)
     for i, topic_dist in enumerate(topic_word):
         topic_words = np.array(vocab)[np.argsort(topic_dist)][:-number_words:-1]
         print('Topic {}: {}\n'.format(i, ' '.join(topic_words)))
