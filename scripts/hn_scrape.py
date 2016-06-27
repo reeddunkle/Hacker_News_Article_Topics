@@ -82,7 +82,7 @@ def gen_parser():
     '''
 
     parser = argparse.ArgumentParser(description='Manipulate an image.')
-    parser.add_argument('--count', dest='count', required=False, nargs='?', default=0, type=str, help='Set the number of top articles to scrape. If none given, will scrape all')
+    parser.add_argument('-c', '--count', dest='count', required=False, nargs='?', default=0, type=str, help='Set the number of top articles to scrape. If none given, will scrape all')
 
     return parser
 

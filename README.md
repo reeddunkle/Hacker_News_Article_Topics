@@ -36,25 +36,38 @@ pip install .
 Running
 ----
 
-To scrape, run this with an optional `--count` argument to set the number of articles to scrape:
+### Scrape articles from Hacker News
+
+To scrape, run this with an optional `--count` (-c) argument to set the number of articles to scrape:
 
 ```
 python scripts/hn_scrape.py --count 20
 ```
 
-After you've done this, you can extract and display keywords from the articles (see first gif):
+### Generate Latent Dirichlet topic model
+
+
+You can generate a topic models for the corpus of articles scraped.
+The required flags are `--topics` (-t) and `--words` (-w)
+
+- `-t` sets the number of topics to generate from the corpus
+- `-w` sets the numbers of words to display from each topic
+
+```
+python scripts/LDA_topic_models.py -t 10 -w 30
+```
+
+### Extract keywords for articles
+
+You can extract and display keywords from the articles (see first gif):
 
 ```
 python scripts/keywords.py
 ```
 
-You can also generate an LDA topic model:
+### Word cloud!
 
-```
-python scripts/LDA_topic_models.py
-```
-
-And word clouds!
+Generate a word cloud for the corpus of text
 
 ```
 python scripts/word_cloud.py
