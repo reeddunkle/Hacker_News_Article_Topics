@@ -11,6 +11,7 @@ import argparse
 import requests
 import pandas as pd
 import os
+import sys
 
 
 
@@ -51,8 +52,8 @@ def scrape_HN_articles_write_to_csv(count=0):
                 articles.append(article_row)
 
                 article_count += 1
-                print("Articles scraped: {}\r".format(article_count))
-
+                sys.stdout.write("Articles scraped: {}\r".format(article_count))
+                sys.stdout.flush()
 
             # A ContentDecoding exception seems to arise when attempting to scrape
             # an site that requires some sort of authentication (throws 'wrong password')
