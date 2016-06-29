@@ -86,7 +86,7 @@ def gen_parser():
     Creates command-line parser to access --count flag.
     '''
 
-    parser = argparse.ArgumentParser(description='Manipulate an image.')
+    parser = argparse.ArgumentParser(description='Get article count.')
     parser.add_argument('-c', '--count', dest='count', required=False, nargs='?', default=0, type=str, help='Set the number of top articles to scrape. If none given, will scrape all')
 
     return parser
