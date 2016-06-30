@@ -24,8 +24,10 @@ def scrape_HN_articles_write_to_csv(count=0):
     and writes it to a .csv file.
     '''
 
+    count = int(count)
+
     if count > 0:
-        limit = int(count)
+        limit = count
     else:
         limit = None
 
