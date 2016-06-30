@@ -32,7 +32,7 @@ def get_texts_for_lda():
     Fetches article text from data/articles, returns lda-ready tokens
     '''
 
-    articles_list = extract_titles_text_and_urls()
+    articles_list = extract_titles_text_and_urls("data/articles.csv", ["title", "html", "url"])
     titles_list, text_list, urls_list = zip(*articles_list)
 
     return normalize_all_texts_for_lda(text_list)

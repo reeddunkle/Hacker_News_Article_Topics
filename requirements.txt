@@ -5,12 +5,13 @@ jieba==0.38
 lda==1.0.3
 lxml==3.6.0
 multiprocessing==2.6.2.1
-newscomb==0.1.0
 nltk==3.2.1
 numpy==1.11.0
 pandas==0.18.1
 pbr==1.10.0
 Pillow==3.2.0
+py==1.4.31
+pytest==2.9.2
 python-dateutil==2.5.3
 pytz==2016.4
 requests==2.10.0

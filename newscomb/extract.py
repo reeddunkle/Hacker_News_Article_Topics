@@ -8,20 +8,22 @@
 
 
 from newscomb.text_cleanup import extract_text_from_html
-import pandas
+import pandas as pd
 
 
 
-def extract_titles_text_and_urls():
+def extract_titles_text_and_urls(csv_file, headers=[]):
+    '''
+    Reads data/articles.csv, returns list of zipped tuples
+    '''
 
-    dataframe = pandas.read_csv("data/articles.csv", index_col=False)
+    dataframe = pd.read_csv(csv_file, index_col=False)
 
-    html_list = dataframe['html']
-    title_list = dataframe['title']
-    url_list = dataframe['url']
+    df_zero = dataframe[headers[0]]
+    df_one = dataframe[headers[1]]
+    df_two = dataframe[headers[2]]
 
-    articles = list(zip(title_list, html_list, url_list))
+    list_of_tuples_with_html = list(zip(df_zero, df_one, df_two))
+    list_of_tuples_text = extract_text_from_html(list_of_tuples_with_html)
 
-    articles_list = extract_text_from_html(articles)
-
-    return articles_list
+    return list_of_tuples_text
