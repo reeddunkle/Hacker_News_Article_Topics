@@ -9,7 +9,7 @@
 import argparse
 from newscomb.text_cleanup import normalize_all_texts_for_lda
 from newscomb.word_processing import display_LDA_topics
-from newscomb.extract import extract_titles_text_and_urls
+from newscomb.extract import generate_tuples_from_csv, extract_text_from_articles
 from sklearn.feature_extraction.text import CountVectorizer
 import lda
 
@@ -32,8 +32,9 @@ def get_texts_for_lda():
     Fetches article text from data/articles, returns lda-ready tokens
     '''
 
-    articles_list = extract_titles_text_and_urls("data/articles.csv", ["title", "html", "url"])
-    titles_list, text_list, urls_list = zip(*articles_list)
+    articles_list_html = generate_tuples_from_csv("data/articles.csv", ["title", "html", "url"])
+    articles_list_text = extract_text_from_articles(articles_list_html)
+    titles_list, text_list, urls_list = zip(*articles_list_text)
 
     return normalize_all_texts_for_lda(text_list)
 

@@ -10,7 +10,7 @@
 from newscomb.word_processing import tokenize_individual_text
 import nltk
 import stop_words
-import multiprocessing
+# import multiprocessing
 import string
 from goose import Goose
 
@@ -18,36 +18,36 @@ goose = Goose()  # Goose is a library to extract text from articles
 
 
 
-def safely_get_content(articles):
-    '''
-    Given html: Uses goose to extract title and clean text.
-    '''
+# def safely_get_content(articles):
+#     '''
+#     Given html: Uses goose to extract title and clean text.
+#     '''
 
-    title, html, url = articles
+#     title, html, url = articles
 
-    try:
-        article = goose.extract(raw_html=html)
-        text = article.cleaned_text
-        content = (title, text, url)
+#     try:
+#         article = goose.extract(raw_html=html)
+#         text = article.cleaned_text
+#         content = (title, text, url)
 
-    except (IndexError, TypeError, RuntimeError):
-        return None
+#     except (IndexError, TypeError, RuntimeError):
+#         return None
 
-    return content
+#     return content
 
 
-def extract_text_from_html(articles):
-    '''
-    Given a list of each article's html, returns list of tuples
-    containing extracted titles and text.
-    '''
+# def extract_text_from_html(articles):
+#     '''
+#     Given a list of each article's html, returns list of tuples
+#     containing extracted titles and text.
+#     '''
 
-    pool = multiprocessing.Pool(12)
+#     pool = multiprocessing.Pool(12)
 
-    articles_list = pool.map(safely_get_content, articles)
-    articles_list = [a for a in articles_list if a is not None]
+#     articles_list = pool.map(safely_get_content, articles)
+#     articles_list = [a for a in articles_list if a is not None]
 
-    return articles_list
+#     return articles_list
 
 
 def clean_and_lowercase_token(token):
